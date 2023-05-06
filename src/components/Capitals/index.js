@@ -2,8 +2,6 @@ import {Component} from 'react'
 
 import './index.css'
 
-import ListEl from '../ListEl'
-
 const countryAndCapitalsList = [
   {
     id: 'NEW_DELHI',
@@ -39,16 +37,11 @@ class Capitals extends Component {
     activeId: countryAndCapitalsList[0].id,
   }
 
-  onChangeCountry = id => {
-    this.setState({activeId: id})
+  onChangeCountry = event => {
+    this.setState({activeId: event.target.value})
   }
 
-  onChangeOption = () => {
-    this.setState({activeId: 3})
-  }
-
-  getCountryName = () => {
-    const {activeId} = this.state
+  getCountryName = activeId => {
     const countryName = countryAndCapitalsList.filter(
       eachItem => eachItem.id === activeId,
     )
@@ -63,7 +56,7 @@ class Capitals extends Component {
   render() {
     const {activeId} = this.state
     console.log(activeId)
-    const countryName = this.getCountryName()
+    const countryName = this.getCountryName(activeId)
     // console.log(countryName)
 
     return (
@@ -72,17 +65,14 @@ class Capitals extends Component {
           <h1 onClick={this.onClickHead}> Countries and Capitals </h1>
 
           <div className="capital-container">
-            <div>
-              <select value={countryName}>
-                {countryAndCapitalsList.map(eachItem => (
-                  <ListEl
-                    eachDetails={eachItem}
-                    onChangeCountry={this.onChangeCountry}
-                    key={eachItem.id}
-                  />
-                ))}
-              </select>
-            </div>
+            <select value={activeId} onChange={this.onChangeCountry}>
+              {countryAndCapitalsList.map(eachItem => (
+                <option value={eachItem.id} key={eachItem.id}>
+                  {eachItem.capitalDisplayText}
+                </option>
+              ))}
+            </select>
+
             <p> is capital of which country? </p>
           </div>
           <h1> {countryName} </h1>

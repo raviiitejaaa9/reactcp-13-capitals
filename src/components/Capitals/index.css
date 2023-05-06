@@ -19,3 +19,10 @@
   justify-content: center;
   align-items: flex-start;
 }
+
+.capital-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
